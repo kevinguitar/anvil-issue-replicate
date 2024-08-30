@@ -24,7 +24,7 @@ interface MainActivitySubcomponent : AnvilAndroidInjector<MainActivity> {
     interface Factory : AnvilAndroidInjector.Factory<MainActivity>
 }
 
-@Module // (subcomponents = [MergedMainActivitySubcomponent::class])
+@Module
 @ContributesTo(scope = AppScope::class)
 interface MainActivityInjectorBinder {
     @IntoMap
