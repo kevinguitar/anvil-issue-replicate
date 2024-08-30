@@ -4,7 +4,7 @@ import com.squareup.anvil.annotations.ContributesTo
 import dagger.BindsInstance
 import dagger.MembersInjector
 
-interface AnvilAndroidInjector<T: Any> {
+interface AnvilAndroidInjector<T> {
 
     val injector: MembersInjector<T>
 
@@ -12,7 +12,7 @@ interface AnvilAndroidInjector<T: Any> {
         injector.injectMembers(target)
     }
 
-    interface Factory<T : Any> {
+    interface Factory<T> {
         fun create(@BindsInstance instance: T): AnvilAndroidInjector<T>
     }
 }
