@@ -6,11 +6,7 @@ import dagger.MembersInjector
 
 interface AnvilAndroidInjector<T: Any> {
 
-    val injector: MembersInjector<T>
-
-    fun inject(target: T) {
-        injector.injectMembers(target)
-    }
+    fun inject(target: T)
 
     interface Factory<T : Any> {
         fun create(@BindsInstance instance: T): AnvilAndroidInjector<T>
