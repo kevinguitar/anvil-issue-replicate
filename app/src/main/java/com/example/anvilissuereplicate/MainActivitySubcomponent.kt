@@ -33,8 +33,3 @@ interface MainActivityInjectorBinder {
     fun bindMainActivityAnvilInjector(`impl`: MainActivitySubcomponent.Factory):
             AnvilAndroidInjector.Factory<*>
 }
-
-@ContributesTo(scope = AppScope::class)
-interface MainActivityFactoryProvider {
-    fun provideMainActivityFactory(): MainActivitySubcomponent.Factory
-}
