@@ -14,7 +14,7 @@
         android:theme="@style/Theme.AnvilIssueReplicate"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.bandlab.feed.FeedActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AnvilIssueReplicate">
@@ -24,6 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.bandlab.user.profile.UserProfileActivity"
+            android:theme="@style/Theme.AnvilIssueReplicate" />
     </application>
 
 </manifest>

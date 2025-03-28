@@ -23,5 +23,9 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "anvil-issue-replicate"
-include(":app")
- 
+include(
+    ":app",
+    ":common",
+    ":feed",
+    ":user-profile"
+)

@@ -1,15 +1,23 @@
-package com.example.anvilissuereplicate
+package com.bandlab.common
 
 import androidx.activity.ComponentActivity
 
-object AnvilAndroidInjection {
+object AnvilInjection {
 
     fun <T : ComponentActivity> inject(activity: T) {
-        val appComponent = (activity.application as App).appComponent
-        val dispatchingAnvilInjector = (appComponent as AnvilAndroidInjectorProvider)
+        try {
+            val injector = activity.resolveServiceProvider<AnvilInjector<T>>()
+            injector.inject(activity)
+            return
+        } catch (e: Exception) {
+            e.toString()
+        }
+
+        val injectors = activity
+            .resolveServiceProvider<AnvilAndroidInjectorProvider>()
             .dispatchingAnvilInjector()
 
-        val injector = dispatchingAnvilInjector[activity::class.java]
+        val injector = injectors[activity::class.java]
             ?: error(
                 """
                     No injector found for ${activity::class.qualifiedName}, 
@@ -18,9 +26,8 @@ object AnvilAndroidInjection {
             )
 
         @Suppress("UNCHECKED_CAST")
-        (injector as AnvilAndroidInjector.Factory<ComponentActivity>)
+        (injector as AnvilInjector.Factory<ComponentActivity>)
             .create(activity)
             .inject(activity)
     }
-
 }

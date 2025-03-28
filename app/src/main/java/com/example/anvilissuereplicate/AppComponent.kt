@@ -1,10 +1,9 @@
 package com.example.anvilissuereplicate
 
+import com.bandlab.common.AppScope
 import com.squareup.anvil.annotations.MergeComponent
 import dagger.BindsInstance
 import javax.inject.Singleton
-
-interface AppScope
 
 @Singleton
 @MergeComponent(scope = AppScope::class)
