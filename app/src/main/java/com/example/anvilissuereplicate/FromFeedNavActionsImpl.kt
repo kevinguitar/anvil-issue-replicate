@@ -4,7 +4,7 @@ import android.content.Intent
 import com.bandlab.common.AppScope
 import com.bandlab.feed.FromFeedNavActions
 import com.bandlab.user.profile.UserProfileActivity
-import com.squareup.anvil.annotations.ContributesBinding
+import dev.zacsweers.metro.ContributesBinding
 import javax.inject.Inject
 
 @ContributesBinding(AppScope::class)

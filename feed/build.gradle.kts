@@ -2,8 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.anvil)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.metro)
 }
 
 android {
@@ -11,17 +10,20 @@ android {
     compileSdk = 35
     defaultConfig.minSdk = 24
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
-anvil {
-    trackSourceFiles.set(true)
-    useKsp(
-        contributesAndFactoryGeneration = true,
-        componentMerging = true
-    )
+metro {
+    interop {
+        includeDagger(includeJakarta = false)
+        includeAnvil(includeKotlinInjectAnvil = false)
+    }
 }
 
 dependencies {
@@ -43,7 +45,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
 }

@@ -1,36 +1,33 @@
 package com.bandlab.feed
 
 import androidx.lifecycle.Lifecycle
-import com.bandlab.common.AnvilAndroidInjectorProvider
 import com.bandlab.common.AnvilInjector
-import com.bandlab.common.AppScope
-import com.squareup.anvil.annotations.ContributesTo
-import com.squareup.anvil.annotations.MergeComponent
-import dagger.Binds
 import dagger.BindsInstance
 import dagger.Module
 import dagger.Provides
-import dagger.multibindings.ClassKey
-import dagger.multibindings.IntoMap
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.DependencyGraph
+import dev.zacsweers.metro.Includes
 
 @Module
 @ContributesTo(FeedActivity::class)
-object FeedActivityModule {
+interface FeedActivityModule {
     @Provides
     fun provideLifecycle(activity: FeedActivity): Lifecycle = activity.lifecycle
 }
 
-@MergeComponent(
+@DependencyGraph(
     scope = FeedActivity::class,
-    dependencies = [FeedActivity.ServiceProvider::class]
+//    dependencies = [FeedActivity.ServiceProvider::class]
 )
 interface FeedActivityComponent : AnvilInjector<FeedActivity> {
 
-    @MergeComponent.Factory
+    @DependencyGraph.Factory
     interface Factory {
         fun create(
             @BindsInstance root: FeedActivity,
-            serviceProvider: FeedActivity.ServiceProvider
+            @Includes serviceProvider: FeedActivity.ServiceProvider
+//            serviceProvider: FeedActivity.ServiceProvider
         ): FeedActivityComponent
     }
 }

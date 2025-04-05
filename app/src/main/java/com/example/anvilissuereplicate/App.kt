@@ -2,6 +2,7 @@ package com.example.anvilissuereplicate
 
 import android.app.Application
 import com.bandlab.common.HasServiceProvider
+import dev.zacsweers.metro.createGraph
 
 class App : Application(), HasServiceProvider {
 
@@ -16,7 +17,7 @@ class App : Application(), HasServiceProvider {
     override fun <T> resolve(): T = appComponent as T
 
     private fun injectApp() {
-        appComponent = DaggerAppComponent.factory().create(this)
+        appComponent = createGraph()
         appComponent.inject(this)
     }
 }

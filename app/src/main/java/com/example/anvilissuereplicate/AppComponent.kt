@@ -1,16 +1,16 @@
 package com.example.anvilissuereplicate
 
 import com.bandlab.common.AppScope
-import com.squareup.anvil.annotations.MergeComponent
 import dagger.BindsInstance
+import dev.zacsweers.metro.DependencyGraph
 import javax.inject.Singleton
 
 @Singleton
-@MergeComponent(scope = AppScope::class)
+@DependencyGraph(scope = AppScope::class)
 interface AppComponent {
     fun inject(app: App)
 
-    @MergeComponent.Factory
+    @DependencyGraph.Factory
     interface Factory {
         fun create(@BindsInstance app: App): AppComponent
     }

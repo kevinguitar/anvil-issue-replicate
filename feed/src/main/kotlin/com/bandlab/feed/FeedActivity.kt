@@ -23,7 +23,9 @@ import com.bandlab.common.AppScope
 import com.bandlab.common.HasServiceProvider
 import com.bandlab.common.Logger
 import com.bandlab.common.resolveServiceProvider
-import com.squareup.anvil.annotations.ContributesTo
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.createGraph
+import dev.zacsweers.metro.createGraphFactory
 import javax.inject.Inject
 
 class FeedActivity : ComponentActivity(), HasServiceProvider {
@@ -35,9 +37,9 @@ class FeedActivity : ComponentActivity(), HasServiceProvider {
     lateinit var fromFeedNavActions: FromFeedNavActions
 
     private val component by lazy {
-        DaggerFeedActivityComponent.factory().create(
+        createGraphFactory<FeedActivityComponent.Factory>().create(
             root = this,
-            serviceProvider = applicationContext.resolveServiceProvider()
+            serviceProvider = resolveServiceProvider()
         )
     }
 

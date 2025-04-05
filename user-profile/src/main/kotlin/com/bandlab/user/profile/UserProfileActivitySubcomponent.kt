@@ -1,18 +1,7 @@
 package com.bandlab.user.profile
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import com.bandlab.common.AnvilInjector
-import com.bandlab.common.AppScope
-import com.squareup.anvil.annotations.ContributesTo
-import com.squareup.anvil.annotations.MergeSubcomponent
-import dagger.Binds
-import dagger.Module
-import dagger.Provides
-import dagger.multibindings.ClassKey
-import dagger.multibindings.IntoMap
-import kotlinx.coroutines.CoroutineScope
-
+// Waiting for ContributesGraphExtension
+/*
 @Module
 @ContributesTo(UserProfileActivity::class)
 object UserProfileActivityModule {
@@ -44,3 +33,4 @@ interface UserProfileActivityInjectorBinder {
 interface UserProfileActivityFactoryProvider {
     fun provideUserProfileActivityFactory(): UserProfileActivitySubcomponent.Factory
 }
+*/

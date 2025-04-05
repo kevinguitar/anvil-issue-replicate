@@ -1,7 +1,9 @@
 package com.bandlab.common
 
-import com.squareup.anvil.annotations.ContributesTo
 import dagger.BindsInstance
+import dagger.Module
+import dagger.multibindings.Multibinds
+import dev.zacsweers.metro.ContributesTo
 
 interface AnvilInjector<T: Any> {
 
@@ -14,6 +16,13 @@ interface AnvilInjector<T: Any> {
 
 @ContributesTo(AppScope::class)
 interface AnvilAndroidInjectorProvider {
+    fun dispatchingAnvilInjector(): DispatchingAnvilInjector
+}
+
+@Module
+@ContributesTo(AppScope::class)
+interface AnvilAndroidInjectorModule {
+    @Multibinds
     fun dispatchingAnvilInjector(): DispatchingAnvilInjector
 }
 
