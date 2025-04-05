@@ -2,7 +2,7 @@ package com.example.anvilissuereplicate
 
 import android.app.Application
 import com.bandlab.common.HasServiceProvider
-import dev.zacsweers.metro.createGraph
+import dev.zacsweers.metro.createGraphFactory
 
 class App : Application(), HasServiceProvider {
 
@@ -17,7 +17,7 @@ class App : Application(), HasServiceProvider {
     override fun <T> resolve(): T = appComponent as T
 
     private fun injectApp() {
-        appComponent = createGraph()
+        appComponent = createGraphFactory<AppComponent.Factory>().create(this)
         appComponent.inject(this)
     }
 }
