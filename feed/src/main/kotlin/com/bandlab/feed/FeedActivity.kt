@@ -18,13 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import com.bandlab.common.AnvilInjection
 import com.bandlab.common.AppScope
 import com.bandlab.common.HasServiceProvider
 import com.bandlab.common.Logger
 import com.bandlab.common.resolveServiceProvider
 import dev.zacsweers.metro.ContributesTo
-import dev.zacsweers.metro.createGraph
 import dev.zacsweers.metro.createGraphFactory
 import javax.inject.Inject
 
@@ -36,10 +36,13 @@ class FeedActivity : ComponentActivity(), HasServiceProvider {
     @Inject
     lateinit var fromFeedNavActions: FromFeedNavActions
 
+    @Inject
+    lateinit var viewModelFactory: FeedViewModel.Factory
+
     private val component by lazy {
         createGraphFactory<FeedActivityComponent.Factory>().create(
             root = this,
-            serviceProvider = resolveServiceProvider()
+            serviceProvider = applicationContext.resolveServiceProvider()
         )
     }
 
@@ -51,6 +54,7 @@ class FeedActivity : ComponentActivity(), HasServiceProvider {
         super.onCreate(savedInstanceState)
 
         logger.log("onCreate")
+        viewModelFactory.create(lifecycleScope)
         enableEdgeToEdge()
         setContent {
             Column(
@@ -94,7 +98,7 @@ class FeedActivity : ComponentActivity(), HasServiceProvider {
 
     @ContributesTo(AppScope::class)
     interface ServiceProvider {
-        fun logger(): Logger
-        fun fromFeedNavActions(): FromFeedNavActions
+        val logger: Logger
+        val fromFeedNavActions: FromFeedNavActions
     }
 }

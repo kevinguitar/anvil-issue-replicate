@@ -29,3 +29,4 @@ include(
     ":feed",
     ":user-profile"
 )
+includeBuild("../metro")

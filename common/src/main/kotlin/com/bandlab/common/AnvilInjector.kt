@@ -19,7 +19,6 @@ interface AnvilAndroidInjectorProvider {
     fun dispatchingAnvilInjector(): DispatchingAnvilInjector
 }
 
-@Module
 @ContributesTo(AppScope::class)
 interface AnvilAndroidInjectorModule {
     @Multibinds
