@@ -4,8 +4,8 @@ import android.content.Intent
 import com.bandlab.common.AppScope
 import com.bandlab.feed.FromFeedNavActions
 import com.bandlab.user.profile.UserProfileActivity
-import com.squareup.anvil.annotations.ContributesBinding
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
 
 @ContributesBinding(AppScope::class)
 class FromFeedNavActionsImpl @Inject constructor(

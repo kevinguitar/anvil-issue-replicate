@@ -13,15 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import com.bandlab.common.AnvilInjection
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
 
+@Inject
 class UserProfileActivity : ComponentActivity() {
 
-    @Inject
     lateinit var lifecycleManager: LifecycleManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AnvilInjection.inject(this)
+//        UserProfileActivitySubcomponent:;c
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()

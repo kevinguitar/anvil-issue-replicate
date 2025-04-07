@@ -2,20 +2,18 @@ package com.bandlab.user.profile
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import com.bandlab.common.ActivityScope
 import com.bandlab.common.AnvilInjector
 import com.bandlab.common.AppScope
-import com.squareup.anvil.annotations.ContributesTo
-import com.squareup.anvil.annotations.MergeSubcomponent
-import dagger.Binds
-import dagger.Module
-import dagger.Provides
-import dagger.multibindings.ClassKey
-import dagger.multibindings.IntoMap
 import kotlinx.coroutines.CoroutineScope
+import me.tatarka.inject.annotations.IntoMap
+import me.tatarka.inject.annotations.Provides
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesSubcomponent
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesTo
+import kotlin.reflect.KClass
 
-@Module
 @ContributesTo(UserProfileActivity::class)
-object UserProfileActivityModule {
+interface UserProfileActivityModule {
 
     @Provides
     fun provideLifecycle(activity: UserProfileActivity): Lifecycle = activity.lifecycle
@@ -24,21 +22,25 @@ object UserProfileActivityModule {
     fun provideScope(activity: UserProfileActivity): CoroutineScope = activity.lifecycleScope
 }
 
-@MergeSubcomponent(scope = UserProfileActivity::class)
-interface UserProfileActivitySubcomponent : AnvilInjector<UserProfileActivity> {
-    @MergeSubcomponent.Factory
-    interface Factory : AnvilInjector.Factory<UserProfileActivity>
+@ActivityScope
+@ContributesSubcomponent(scope = UserProfileActivity::class)
+interface UserProfileActivitySubcomponent { //: AnvilInjector<UserProfileActivity> {
+    @ContributesSubcomponent.Factory(AppScope::class)
+    interface Factory { //: AnvilInjector.Factory<UserProfileActivity> {
+        fun createUserProfileActivitySubcomponent(): UserProfileActivitySubcomponent
+    }
 }
 
-@Module
-@ContributesTo(scope = AppScope::class)
-interface UserProfileActivityInjectorBinder {
-    @IntoMap
-    @Binds
-    @ClassKey(UserProfileActivity::class)
-    fun bindUserProfileActivityAnvilInjector(impl: UserProfileActivitySubcomponent.Factory):
-            AnvilInjector.Factory<*>
-}
+//@ContributesTo(scope = AppScope::class)
+//interface UserProfileActivityInjectorBinder {
+//    @IntoMap
+//    @Provides
+//    fun provideUserProfileActivityAnvilInjector(
+//        impl: UserProfileActivitySubcomponent.Factory
+//    ): Pair<KClass<*>, AnvilInjector.Factory<*>> {
+//        return UserProfileActivity::class to impl
+//    }
+//}
 
 @ContributesTo(scope = AppScope::class)
 interface UserProfileActivityFactoryProvider {

@@ -22,33 +22,31 @@ import com.bandlab.common.AnvilInjection
 import com.bandlab.common.AppScope
 import com.bandlab.common.HasServiceProvider
 import com.bandlab.common.Logger
-import com.bandlab.common.resolveServiceProvider
-import com.squareup.anvil.annotations.ContributesTo
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesTo
+import kotlin.math.log
 
-class FeedActivity : ComponentActivity(), HasServiceProvider {
+class FeedActivity : ComponentActivity() { //, HasServiceProvider {
 
-    @Inject
+    lateinit var factory: FeedActivityComponent.Factory
     lateinit var logger: Logger
-
-    @Inject
     lateinit var fromFeedNavActions: FromFeedNavActions
 
-    private val component by lazy {
-        DaggerFeedActivityComponent.factory().create(
-            root = this,
-            serviceProvider = applicationContext.resolveServiceProvider()
-        )
+    @Inject
+    fun injectMembers(
+        factory: FeedActivityComponent.Factory,
+        logger: Logger,
+        fromFeedNavActions: FromFeedNavActions
+    ) {
+        this.logger = logger
+        this.fromFeedNavActions = fromFeedNavActions
     }
 
-    @Suppress("UNCHECKED_CAST")
-    override fun <T> resolve(): T = component as T
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        AnvilInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        logger.log("onCreate")
+        val component = factory.create("feed")
+        logger.log("FeedActivity onCreate")
         enableEdgeToEdge()
         setContent {
             Column(
@@ -90,9 +88,9 @@ class FeedActivity : ComponentActivity(), HasServiceProvider {
         }
     }
 
-    @ContributesTo(AppScope::class)
-    interface ServiceProvider {
-        fun logger(): Logger
-        fun fromFeedNavActions(): FromFeedNavActions
-    }
+//    @ContributesTo(AppScope::class)
+//    interface ServiceProvider {
+//        fun logger(): Logger
+//        fun fromFeedNavActions(): FromFeedNavActions
+//    }
 }

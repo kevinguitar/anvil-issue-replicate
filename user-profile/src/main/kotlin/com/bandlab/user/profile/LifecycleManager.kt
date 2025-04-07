@@ -3,10 +3,9 @@ package com.bandlab.user.profile
 import androidx.lifecycle.Lifecycle
 import com.bandlab.common.Logger
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
 
 class LifecycleManager @Inject constructor(
     lifecycle: Lifecycle,

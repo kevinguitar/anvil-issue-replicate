@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.anvil)
     alias(libs.plugins.ksp)
 }
 
@@ -47,14 +46,6 @@ java {
     }
 }
 
-anvil {
-    trackSourceFiles.set(true)
-    useKsp(
-        contributesAndFactoryGeneration = true,
-        componentMerging = true
-    )
-}
-
 kotlin {
     compilerOptions.freeCompilerArgs.add("-Xjvm-default=all")
 }
@@ -80,6 +71,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
+    implementation(libs.kotlin.inject.runtime)
+    implementation(libs.kotlin.inject.anvil.runtime)
+    ksp(libs.kotlin.inject.ksp)
+    ksp(libs.kotlin.inject.anvil.compiler)
 }

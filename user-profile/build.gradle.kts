@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.anvil)
     alias(libs.plugins.ksp)
 }
 
@@ -14,15 +13,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-}
-
-anvil {
-    trackSourceFiles.set(true)
-    generateDaggerFactories.set(true)
-    useKsp(
-        contributesAndFactoryGeneration = true,
-        componentMerging = true
-    )
 }
 
 dependencies {
@@ -45,5 +35,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation(libs.dagger)
+    implementation(libs.kotlin.inject.runtime)
+    implementation(libs.kotlin.inject.anvil.runtime)
+    ksp(libs.kotlin.inject.ksp)
+    ksp(libs.kotlin.inject.anvil.compiler)
 }

@@ -16,7 +16,6 @@ class App : Application(), HasServiceProvider {
     override fun <T> resolve(): T = appComponent as T
 
     private fun injectApp() {
-        appComponent = DaggerAppComponent.factory().create(this)
-        appComponent.inject(this)
+        appComponent = AppComponent::class.create()
     }
 }

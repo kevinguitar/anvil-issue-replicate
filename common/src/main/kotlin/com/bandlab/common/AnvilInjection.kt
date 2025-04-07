@@ -17,7 +17,7 @@ object AnvilInjection {
             .resolveServiceProvider<AnvilAndroidInjectorProvider>()
             .dispatchingAnvilInjector()
 
-        val injector = injectors[activity::class.java]
+        val injector = injectors[activity::class]
             ?: error(
                 """
                     No injector found for ${activity::class.qualifiedName}, 
