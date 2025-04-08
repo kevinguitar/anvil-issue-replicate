@@ -5,7 +5,6 @@ import com.bandlab.common.Logger
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.zacsweers.metro.ContributesTo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -23,7 +22,6 @@ class FeedViewModel @AssistedInject constructor(
         }
     }
 
-    @ContributesTo(FeedActivity::class)
     @AssistedFactory
     interface Factory {
         fun create(coroutineScope: CoroutineScope): FeedViewModel
